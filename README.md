@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Assignment 11: Docker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Name: Paolo Divino
 
-## Available Scripts
+## About this project
 
-In the project directory, you can run:
+I used Create React App to create a webpage that displays
+"Codin 1" inside an h1 tag.
 
-### `npm start`
+The app runs in a Docker container and can be viewed at:
+http://localhost:7775
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## What you need
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Docker Desktop installed and running with Linux containers.
+- The project files downloaded from this GitHub repository.
+- An internet connection for the first build.
 
-### `npm test`
+## Build the Docker image
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Open a terminal in the project folder containing the Dockerfile.
+Run this command:
 
-### `npm run build`
+docker build -t divino_paolo_assignment11 .
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This builds an image containing the app and the tools it needs to run.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Create and run the container
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Run this command:
 
-### `npm run eject`
+docker run -d --name divino_paolo_coding_assignment11 -p 127.0.0.1:7775:3000 divino_paolo_assignment11
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This creates a container named divino_paolo_coding_assignment11
+and starts the app in the background.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+It connects port 7775 on my computer to port 3000 inside the container.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Open http://localhost:7775 in a browser.
+The page should display "Codin 1". 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## How I created the React app
 
-## Learn More
+I used this command to create the starter project:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```powershell
+npx.cmd create-react-app@5.1.0 coding-assignment11 --use-npm
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Then I edited src/App.js to display this heading:
 
-### Code Splitting
+```html
+<h1>Codin 1</h1>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+These steps describe the original setup. You do not need to create
+another React app to run this repository.
 
-### Analyzing the Bundle Size
+## Working directory inside Docker
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+My Dockerfile includes:
 
-### Making a Progressive Web App
+```dockerfile
+WORKDIR /divino_paolo_site
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This sets the folder inside the container where the app files are stored
+and where commands run.
 
-### Advanced Configuration
+I checked the working directory with:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```powershell
+docker exec divino_paolo_coding_assignment11 pwd
+```
 
-### Deployment
+The result was:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```text
+/divino_paolo_site
+```
